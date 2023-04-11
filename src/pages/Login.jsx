@@ -42,7 +42,8 @@ class Login extends React.Component {
             placeholder="bode@bode.com"
             value={ inputEmail }
             onChange={ this.handleChange }
-            data-testid="password-input"
+            data-testid="email-input"
+
           />
         </label>
         <label htmlFor="inputPassword">
@@ -52,7 +53,7 @@ class Login extends React.Component {
             placeholder="Sua senha"
             value={ inputPassword }
             onChange={ this.handleChange }
-            data-testid="email-input"
+            data-testid="password-input"
           />
         </label>
         <button
