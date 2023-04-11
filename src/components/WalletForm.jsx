@@ -1,8 +1,10 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { actionFetchListCoint } from '../redux/actions';
 
 const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
-const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Saúde'];
+const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class WalletForm extends Component {
   state = {
@@ -12,6 +14,11 @@ class WalletForm extends Component {
     methodExpense: 'Dinheiro',
     tagExpense: 'Alimentação',
   };
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(actionFetchListCoint());
+  }
 
   handleChange = ({ target }) => {
     const { name, value } = target;
@@ -24,9 +31,10 @@ class WalletForm extends Component {
     const {
       valueExpense,
       descriptioExpense,
-      coinExpense,
       methodExpense,
+      coinExpense,
       tagExpense } = this.state;
+    const { currencies } = this.props;
     return (
       <form>
         <label htmlFor="valueExpense">
@@ -52,12 +60,12 @@ class WalletForm extends Component {
         <label htmlFor="coinExpense">
           Moeda:
           <select
-            data-testid="method-input"
+            data-testid="currency-input"
             name="coinExpense"
             value={ coinExpense }
             onChange={ this.handleChange }
           >
-            {methods.map((e, k) => (<option key={ k } value={ e }>{e}</option>))}
+            {currencies.map((e, k) => (<option key={ k } value={ e }>{e}</option>))}
           </select>
         </label>
         <label htmlFor="methodExpense">
@@ -88,4 +96,15 @@ class WalletForm extends Component {
   }
 }
 
-export default connect()(WalletForm);
+WalletForm.propTypes = {
+  currencies: PropTypes.shape({
+    map: PropTypes.func,
+  }),
+  dispatch: PropTypes.func,
+}.isRequired;
+
+const mapStateToProps = ({ wallet }) => ({
+  currencies: wallet.currencies,
+});
+
+export default connect(mapStateToProps)(WalletForm);

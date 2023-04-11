@@ -23,7 +23,7 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       isLoading: false,
-      currencies: [...state.currencies, action.payload.currencies],
+      currencies: [...action.payload.currencies],
     };
   case FETCH_LIST_ERROR:
     return {
