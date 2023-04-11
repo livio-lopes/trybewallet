@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 
 const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Saúde'];
+
 class WalletForm extends Component {
   state = {
     valueExpense: 0,
     descriptioExpense: '',
-    coinExpense: 'Bode',
+    coinExpense: '',
     methodExpense: 'Dinheiro',
     tagExpense: 'Alimentação',
   };
