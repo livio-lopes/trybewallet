@@ -1,7 +1,9 @@
-import React from 'react';
-
-function App() {
-  return <div>Hello, TrybeWallet!</div>;
+import React, { Component } from 'react';
+/// teste
+export default class App extends Component {
+  render() {
+    return (
+      <div>App</div>
+    );
+  }
 }
-
-export default App;
