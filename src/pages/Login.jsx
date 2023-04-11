@@ -5,7 +5,6 @@ class Login extends React.Component {
   state = {
     inputEmail: '',
     inputPassword: '',
-    isDisabled: true,
   };
 
   handleChange = ({ target }) => {
@@ -15,38 +14,46 @@ class Login extends React.Component {
     });
   };
 
+  validation = () => {
+    const { inputEmail, inputPassword } = this.state;
+    const validEmail = (/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i).test(inputEmail);
+    const sizePassword = 6;
+    const validPassword = inputPassword.length >= sizePassword;
+    return !((validEmail && validPassword));
+  };
+
   handleClick = () => {
     const { history } = this.props;
     history.push('/carteira');
   };
 
   render() {
-    const { inputEmail, inputPassword, isDisabled } = this.state;
+    const { inputEmail, inputPassword } = this.state;
     return (
       <div>
-        <label htmlFor="inputPassword">
-          <input
-            type="password"
-            name="inputPassword"
-            placeholder="bode@bode.com"
-            value={ inputPassword }
-            onChange={ this.handleChange }
-            data-testid="email-input"
-          />
-        </label>
         <label htmlFor="inputEmail">
           <input
             type="email"
             name="inputEmail"
-            placeholder="Sua senha"
+            placeholder="bode@bode.com"
             value={ inputEmail }
             onChange={ this.handleChange }
             data-testid="password-input"
           />
         </label>
+        <label htmlFor="inputPassword">
+          <input
+            type="password"
+            name="inputPassword"
+            placeholder="Sua senha"
+            value={ inputPassword }
+            onChange={ this.handleChange }
+            data-testid="email-input"
+          />
+        </label>
         <button
           type="button"
-          disabled={ isDisabled }
+          disabled={ this.validation() }
           onClick={ this.handleClick }
         >
           Entrar
