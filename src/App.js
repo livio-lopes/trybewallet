@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-/// teste
+import Routes from './components/Routes';
+
 export default class App extends Component {
   render() {
     return (
-      <div>App</div>
+      <div>
+        <Routes />
+      </div>
     );
   }
 }
