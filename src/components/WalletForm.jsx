@@ -8,7 +8,7 @@ const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class WalletForm extends Component {
   state = {
-    valueExpense: '0',
+    valueExpense: '',
     descriptioExpense: '',
     coinExpense: 'USD',
     methodExpense: 'Dinheiro',
@@ -44,6 +44,10 @@ class WalletForm extends Component {
       tag: tagExpense,
     };
     dispatch(fetchAddExpense(expense));
+    this.setState({
+      valueExpense: '',
+      descriptioExpense: '',
+    });
   };
 
   render() {
