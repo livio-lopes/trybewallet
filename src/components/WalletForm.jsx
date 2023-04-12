@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { actionFetchListCoint } from '../redux/actions';
+import { actionFetchListCoint, fetchAddExpense } from '../redux/actions';
 
 const methods = ['Dinheiro', 'Cartão de crédito', 'Cartão de débito'];
 const tags = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
@@ -25,6 +25,25 @@ class WalletForm extends Component {
     this.setState({
       [name]: value,
     });
+  };
+
+  handleClick = () => {
+    const {
+      valueExpense,
+      descriptioExpense,
+      coinExpense,
+      methodExpense,
+      tagExpense } = this.state;
+    const { expenses, dispatch } = this.props;
+    const expense = {
+      id: expenses.length,
+      value: valueExpense,
+      description: descriptioExpense,
+      currency: coinExpense,
+      method: methodExpense,
+      tag: tagExpense,
+    };
+    dispatch(fetchAddExpense(expense));
   };
 
   render() {
@@ -91,6 +110,13 @@ class WalletForm extends Component {
             {tags.map((e, k) => (<option key={ k } value={ e }>{e}</option>))}
           </select>
         </label>
+        <button
+          type="button"
+          onClick={ this.handleClick }
+        >
+          Adicionar despesa
+
+        </button>
       </form>
     );
   }
@@ -102,9 +128,9 @@ WalletForm.propTypes = {
   }),
   dispatch: PropTypes.func,
 }.isRequired;
-
 const mapStateToProps = ({ wallet }) => ({
   currencies: wallet.currencies,
+  expenses: wallet.expenses,
 });
 
 export default connect(mapStateToProps)(WalletForm);

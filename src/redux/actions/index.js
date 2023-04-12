@@ -1,4 +1,4 @@
-import { fetchListCoins } from '../../services/fetchAPI';
+import { fetchListCoins, fetchExchangeRates } from '../../services/fetchAPI';
 
 export const SAVE_EMAIL = 'SAVE_EMAIL';
 
@@ -9,16 +9,16 @@ export const saveEmail = (email) => ({
   },
 });
 
-export const FETCH_LIST_LOAD = 'FETCH_LIST_LOAD';
+export const FETCH_LOAD = 'FETCH_LOAD';
 export const FETCH_LIST_SUCCESS = 'FETCH_LIST_SUCCESS';
-export const FETCH_LIST_ERROR = 'FETCH_LIST_ERROR';
+export const FETCH_ERROR = 'FETCH_ERROR';
 
 const fetchListLoad = () => ({
-  type: FETCH_LIST_LOAD,
+  type: FETCH_LOAD,
 });
 
 const fetchListError = (error) => ({
-  type: FETCH_LIST_ERROR,
+  type: FETCH_ERROR,
   payload: error,
 });
 
@@ -32,6 +32,24 @@ export const actionFetchListCoint = () => async (dispatch) => {
   try {
     const list = await fetchListCoins();
     dispatch(fetchListSuccess(list));
+  } catch (error) {
+    dispatch(fetchListError(error));
+  }
+};
+export const ADD_EXPENSE = 'ADD_EXPENSE';
+
+const addExpense = (expenses) => (
+  { type: ADD_EXPENSE, payload: { expenses } });
+
+export const fetchAddExpense = (expense) => async (dispatch) => {
+  dispatch(fetchListLoad());
+  try {
+    const exchangeRates = await fetchExchangeRates();
+    const newExpense = {
+      ...expense,
+      exchangeRates,
+    };
+    dispatch(addExpense(newExpense));
   } catch (error) {
     dispatch(fetchListError(error));
   }

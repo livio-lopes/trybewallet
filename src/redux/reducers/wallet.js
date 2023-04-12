@@ -1,7 +1,8 @@
 import {
-  FETCH_LIST_LOAD,
+  FETCH_ERROR,
+  FETCH_LOAD,
   FETCH_LIST_SUCCESS,
-  FETCH_LIST_ERROR } from '../actions';
+  ADD_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -14,7 +15,7 @@ const INITIAL_STATE = {
 
 const wallet = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case FETCH_LIST_LOAD:
+  case FETCH_LOAD:
     return {
       ...state,
       isLoading: true,
@@ -25,11 +26,17 @@ const wallet = (state = INITIAL_STATE, action) => {
       isLoading: false,
       currencies: [...action.payload.currencies],
     };
-  case FETCH_LIST_ERROR:
+  case FETCH_ERROR:
     return {
       ...state,
       isLoading: false,
       errorMsg: action.payload,
+    };
+  case ADD_EXPENSE:
+    return {
+      ...state,
+      isLoading: false,
+      expenses: [...state.expenses, action.payload.expenses],
     };
   default:
     return state;
