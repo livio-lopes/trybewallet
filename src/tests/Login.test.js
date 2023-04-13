@@ -8,7 +8,7 @@ const PASSWORD = '123456';
 const testIdEmail = 'email-input';
 const testIdPassword = 'password-input';
 
-describe('Testa pagina Login', () => {
+describe('Testa componente Login', () => {
   it('Verifica se tela de login renderiza dois inputs e um botão desabilitado', () => {
     renderWithRouterAndRedux(<App />);
     const inputEmail = screen.getByTestId(testIdEmail);
