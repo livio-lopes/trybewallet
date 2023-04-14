@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 const colunn = ['Descrição',
   'Tag',
@@ -12,6 +14,7 @@ const colunn = ['Descrição',
 
 class Table extends Component {
   render() {
+    const { expenses } = this.props;
     return (
       <table>
         <thead>
@@ -22,20 +25,35 @@ class Table extends Component {
           </tr>
         </thead>
 
-        {/* <tbody>
-        {rowsFiltred().map((planet, index) => (
-          <tr key={ index }>
-            {
-              colunn.map((info, newIndex) => (
-                <td key={ newIndex }>{planet[info]}</td>
-              ))
-            }
-          </tr>
-        ))}
-      </tbody> */}
+        <tbody>
+          {expenses.map((exp, i) => (
+            <tr key={ i }>
+              <td>{exp.description}</td>
+              <td>{exp.tag}</td>
+              <td>{exp.method}</td>
+              <td>{Number(exp.value).toFixed(2)}</td>
+              <td>{exp.exchangeRates[exp.currency].name}</td>
+              <td>{Number(exp.exchangeRates[exp.currency].ask).toFixed(2)}</td>
+              <td>
+                {(Number(exp.value)
+              * Number(exp.exchangeRates[exp.currency].ask)).toFixed(2)}
+              </td>
+              <td>Real</td>
+              <td>Editar/Excluir</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     );
   }
 }
 
-export default Table;
+Table.propTypes = {
+  expenses: PropTypes.arrayOf(PropTypes.object),
+}.isRequired;
+
+const mapStateToProps = ({ wallet }) => ({
+  expenses: wallet.expenses,
+});
+
+export default connect(mapStateToProps)(Table);
