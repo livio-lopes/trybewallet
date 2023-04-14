@@ -19,7 +19,7 @@ class Header extends Component {
         <h1 data-testid="email-field">{email}</h1>
         <h2 data-testid="total-field">
           {expenses.length !== 0
-            ? this.totalFiled(expenses).toFixed(2) : '0'}
+            ? this.totalFiled(expenses).toFixed(2) : '0.00'}
 
         </h2>
         <h2 data-testid="header-currency-field">BRL</h2>

@@ -2,7 +2,8 @@ import {
   FETCH_ERROR,
   FETCH_LOAD,
   FETCH_LIST_SUCCESS,
-  ADD_EXPENSE } from '../actions';
+  ADD_EXPENSE,
+  DELETE_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -37,6 +38,11 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       isLoading: false,
       expenses: [...state.expenses, action.payload.expenses],
+    };
+  case DELETE_EXPENSE:
+    return {
+      ...state,
+      expenses: state.expenses.filter((exp) => exp.id !== action.payload.id),
     };
   default:
     return state;
