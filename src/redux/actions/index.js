@@ -72,3 +72,27 @@ export const editExpense = (id) => ({
     id,
   },
 });
+
+export const SAVE_EDIT_EXPENSE = 'SAVE_EDIT_EXPENSE';
+
+export const saveEditExpense = (expenses) => ({
+  type: SAVE_EDIT_EXPENSE,
+  payload: {
+    index: expenses.id,
+    expenses,
+  },
+});
+
+export const fetchSaveEditExpense = (expense) => async (dispatch) => {
+  dispatch(fetchListLoad());
+  try {
+    const exchangeRates = await fetchExchangeRates();
+    const newExpense = {
+      ...expense,
+      exchangeRates,
+    };
+    dispatch(saveEditExpense(newExpense));
+  } catch (error) {
+    dispatch(fetchListError(error));
+  }
+};

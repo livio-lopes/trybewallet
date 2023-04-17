@@ -4,7 +4,8 @@ import {
   FETCH_LIST_SUCCESS,
   ADD_EXPENSE,
   DELETE_EXPENSE,
-  EDIT_EXPENSE } from '../actions';
+  EDIT_EXPENSE,
+  SAVE_EDIT_EXPENSE } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -38,7 +39,6 @@ const wallet = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       isLoading: false,
-      editor: false,
       expenses: [...state.expenses, action.payload.expenses],
     };
   case DELETE_EXPENSE:
@@ -51,6 +51,18 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       idToEdit: action.payload.id,
       editor: true,
+    };
+  case SAVE_EDIT_EXPENSE:
+    return {
+      ...state,
+      editor: false,
+      expenses: state.expenses.map((exp) => {
+        let swtichExp = exp;
+        if (exp.id === action.payload.index) {
+          swtichExp = action.payload.expenses;
+        }
+        return swtichExp;
+      }),
     };
   default:
     return state;
