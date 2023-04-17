@@ -50,6 +50,35 @@ class WalletForm extends Component {
     });
   };
 
+  btn() {
+    const { editor } = this.props;
+    return editor ? this.btnEditExpense() : this.btnAddExpense();
+  }
+
+  btnAddExpense() {
+    return (
+      <button
+        type="button"
+        onClick={ this.handleClick }
+      >
+        Adicionar despesa
+
+      </button>
+    );
+  }
+
+  btnEditExpense() {
+    return (
+      <button
+        type="button"
+        onClick={ this.handleClick }
+      >
+        Editar despesa
+
+      </button>
+    );
+  }
+
   render() {
     const {
       valueExpense,
@@ -114,13 +143,14 @@ class WalletForm extends Component {
             {tags.map((e, k) => (<option key={ k } value={ e }>{e}</option>))}
           </select>
         </label>
-        <button
+        {/* <button
           type="button"
-          onClick={ this.handleClick }
+          onClick={this.handleClick}
         >
           Adicionar despesa
 
-        </button>
+        </button> */}
+        {this.btn()}
       </form>
     );
   }
@@ -131,10 +161,12 @@ WalletForm.propTypes = {
     map: PropTypes.func,
   }),
   dispatch: PropTypes.func,
+  editor: PropTypes.bool,
 }.isRequired;
 const mapStateToProps = ({ wallet }) => ({
   currencies: wallet.currencies,
   expenses: wallet.expenses,
+  editor: wallet.editor,
 });
 
 export default connect(mapStateToProps)(WalletForm);
