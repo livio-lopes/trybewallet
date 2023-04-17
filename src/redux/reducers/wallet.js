@@ -57,11 +57,11 @@ const wallet = (state = INITIAL_STATE, action) => {
       ...state,
       editor: false,
       expenses: state.expenses.map((exp) => {
-        let swtichExp = exp;
+        let switchExp = exp;
         if (exp.id === action.payload.index) {
-          swtichExp = action.payload.expenses;
+          switchExp = action.payload.expenses;
         }
-        return swtichExp;
+        return switchExp;
       }),
     };
   default:

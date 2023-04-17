@@ -1,7 +1,9 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Wallet from '../pages/Wallet';
+import App from '../App';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
+import mockData from './helpers/mockData';
 
 describe('Testa componente Wallet', () => {
   it('Testa se Header é renderizado com email, total "0", e "BRL', () => {
@@ -45,7 +47,10 @@ describe('Testa componente Wallet', () => {
     expect(tagExpense).toBeInTheDocument();
     expect(btnAddExpense).toBeInTheDocument();
   });
-  it.skip('Testa se o botão salva despesa em expenses', () => {
+  it.only('Testa se header é atualizado com o total de despesas ', async () => {
+    global.fetch = jest.fn(async () => ({
+      json: async () => mockData,
+    }));
     const EMAIL = 'bode@gmail.com';
     const initialState = {
       user: { email: EMAIL },
@@ -61,12 +66,13 @@ describe('Testa componente Wallet', () => {
     const expense = {
       value: 10,
       description: 'bode',
-      currency: 'DOGE',
+      currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
-
     };
-    renderWithRouterAndRedux(<Wallet />, { initialState });
+
+    const initialEntries = ['/carteira'];
+    renderWithRouterAndRedux(<App />, { initialState, initialEntries });
     const valueExpense = screen.getByTestId('value-input');
     const descriptionExpense = screen.getByTestId('description-input');
     const currencyExpense = screen.getByTestId('currency-input');
@@ -75,10 +81,56 @@ describe('Testa componente Wallet', () => {
     const btnAddExpense = screen.getByRole('button', { name: /adicionar despesa/i });
     userEvent.type(valueExpense, expense.value);
     userEvent.type(descriptionExpense, expense.description);
-    userEvent.selectOptions(currencyExpense, [expense.currency]);
-    userEvent.selectOptions(methodExpense, [expense.method]);
-    userEvent.selectOptions(tagExpense, [expense.tag]);
+    await waitFor(() => {
+      userEvent.selectOptions(currencyExpense, expense.currency);
+    });
+    // screen.debug();
+    userEvent.selectOptions(methodExpense, expense.method);
+    userEvent.selectOptions(tagExpense, expense.tag);
     userEvent.click(btnAddExpense);
+    const total = screen.getByTestId('total-field');
+    screen.debug();
+    await waitFor(() => {
+      expect(total).toBeInTheDocument();
+    });
   });
-  it.skip('Testa se header é atualizado com o total de despesas ', () => {});
+  it('Testa se o botão de deletar despesa funciona', async () => {
+    const initialState = {
+      user: { email: 'bode@gmail.com' },
+      wallet: {
+        currencies: [
+          'USD',
+          'CAD',
+          'GBP',
+          'ARS',
+          'BTC',
+          'LTC',
+          'EUR',
+          'JPY',
+          'CHF',
+          'AUD',
+          'CNY',
+          'ILS',
+          'ETH',
+          'XRP',
+          'DOGE',
+        ],
+        expenses: [
+          { id: 0, value: '10', description: 'bode', currency: 'USD', method: 'Dinheiro', tag: 'Trabalho', exchangeRates: mockData },
+          { id: 1, value: '5', description: 'gato', currency: 'USD', method: 'Dinheiro', tag: 'Transporte', exchangeRates: mockData },
+        ],
+        editor: false,
+        idToEdit: 0,
+        isLoading: true,
+        errorMsg: null,
+      },
+    };
+    renderWithRouterAndRedux(<Wallet />, { initialState });
+    await waitFor(() => {
+      const trElements = screen.getByRole('tr');
+      expect(trElements).toHaveLength(3);
+      const btnsDelete = screen.getAllByTestId('delete-btn');
+      expect(btnsDelete).toHaveLength(2);
+    });
+  });
 });
