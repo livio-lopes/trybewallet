@@ -7,7 +7,7 @@ import mockData from './helpers/mockData';
 
 describe('Testa componente Wallet', () => {
   it('Testa se Header é renderizado com email, total "0", e "BRL', () => {
-    const EMAIL = 'bode@gmail.com';
+    const EMAIL = 'gato@gmail.com';
     const initialState = {
       user: { email: EMAIL },
       wallet: {
