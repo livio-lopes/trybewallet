@@ -3,3 +3,10 @@
   margin: 0;
   padding: 0;
 }
+
+body {
+  background-color: rgba(47, 193, 140, 1);
+  background-image: url('../imgs/background_trybewallet.svg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
