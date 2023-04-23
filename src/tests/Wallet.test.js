@@ -84,7 +84,6 @@ describe('Testa componente Wallet', () => {
     await waitFor(() => {
       userEvent.selectOptions(currencyExpense, expense.currency);
     });
-    // screen.debug();
     userEvent.selectOptions(methodExpense, expense.method);
     userEvent.selectOptions(tagExpense, expense.tag);
     userEvent.click(btnAddExpense);
