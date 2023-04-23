@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { saveEmail } from '../redux/actions';
 import styles from './Login.module.css';
+import Logo from '../components/Logo';
 
 class Login extends React.Component {
   state = {
@@ -35,12 +36,14 @@ class Login extends React.Component {
   render() {
     const { inputEmail, inputPassword } = this.state;
     return (
-      <div>
+      <div className={ styles.container }>
+        <Logo />
         <label htmlFor="inputEmail">
           <input
+            className={ styles.input__login }
             type="email"
             name="inputEmail"
-            placeholder="bode@bode.com"
+            placeholder="Email"
             value={ inputEmail }
             onChange={ this.handleChange }
             data-testid="email-input"
@@ -49,9 +52,10 @@ class Login extends React.Component {
         </label>
         <label htmlFor="inputPassword">
           <input
+            className={ styles.input__login }
             type="password"
             name="inputPassword"
-            placeholder="Sua senha"
+            placeholder="Senha"
             value={ inputPassword }
             onChange={ this.handleChange }
             data-testid="password-input"
@@ -59,6 +63,7 @@ class Login extends React.Component {
         </label>
         <button
           type="button"
+          className={ styles.btn__login }
           disabled={ this.validation() }
           onClick={ this.handleClick }
         >
