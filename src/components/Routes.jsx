@@ -7,8 +7,8 @@ export default class Routes extends Component {
   render() {
     return (
       <Switch>
-        <Route exact path="https://livio-lopes.github.io/trybewallet/" component={ Login } />
-        <Route exact path="https://livio-lopes.github.io/trybewallet/carteira" component={ Wallet } />
+        <Route exact path="/" component={ Login } />
+        <Route exact path="/carteira" component={ Wallet } />
       </Switch>
     );
   }
