@@ -8,7 +8,7 @@ export default class Routes extends Component {
     return (
       <Switch>
         <Route exact path="https://livio-lopes.github.io/trybewallet/" component={ Login } />
-        <Route path="/carteira" component={ Wallet } />
+        <Route exact path="https://livio-lopes.github.io/trybewallet/carteira" component={ Wallet } />
       </Switch>
     );
   }
