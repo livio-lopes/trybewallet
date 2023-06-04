@@ -133,8 +133,24 @@ class WalletForm extends Component {
     return (
       <div>
 
-        <form>
-          <label htmlFor="valueExpense">
+        <form className={ styles.container__form }>
+          <label
+            className={ styles.label__forms }
+            htmlFor="descriptionExpense"
+          >
+            Descrição da Despesa:
+            <input
+              data-testid="description-input"
+              type="text"
+              name="descriptionExpense"
+              value={ descriptionExpense }
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label
+            className={ styles.label__forms }
+            htmlFor="valueExpense"
+          >
             Valor da Despesa:
             <input
               data-testid="value-input"
@@ -144,17 +160,10 @@ class WalletForm extends Component {
               onChange={ this.handleChange }
             />
           </label>
-          <label htmlFor="descriptionExpense">
-            Descriação da Despesa:
-            <input
-              data-testid="description-input"
-              type="text"
-              name="descriptionExpense"
-              value={ descriptionExpense }
-              onChange={ this.handleChange }
-            />
-          </label>
-          <label htmlFor="coinExpense">
+          <label
+            className={ styles.label__forms }
+            htmlFor="coinExpense"
+          >
             Moeda:
             <select
               data-testid="currency-input"
@@ -165,7 +174,10 @@ class WalletForm extends Component {
               {currencies.map((e, k) => (<option key={ k } value={ e }>{e}</option>))}
             </select>
           </label>
-          <label htmlFor="methodExpense">
+          <label
+            className={ styles.label__forms }
+            htmlFor="methodExpense"
+          >
             Metodo de Pagamento:
             <select
               data-testid="method-input"
@@ -177,7 +189,10 @@ class WalletForm extends Component {
             </select>
 
           </label>
-          <label htmlFor="tagExpense">
+          <label
+            className={ styles.label__forms }
+            htmlFor="tagExpense"
+          >
             Categorias:
             <select
               data-testid="tag-input"
