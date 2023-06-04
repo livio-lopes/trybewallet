@@ -5,3 +5,12 @@
   height: 40px;
   width: 330px;
 }
+
+.container__btn {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 30px;
+  padding-top: 30px;
+}

@@ -190,7 +190,7 @@ class WalletForm extends Component {
           </label>
 
         </form>
-        <div>
+        <div className={ styles.container__btn }>
           {this.btn()}
         </div>
       </div>
