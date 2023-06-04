@@ -13,4 +13,16 @@
   height: 370px;
   justify-content: center;
   width: 900px;
+  z-index: 1;
+}
+
+.container__table {
+  background-color: rgba(0, 59, 229, 1);
+  border-radius: 10px;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  position: relative;
+  top: -245px;
+  width: 1200px;
 }
